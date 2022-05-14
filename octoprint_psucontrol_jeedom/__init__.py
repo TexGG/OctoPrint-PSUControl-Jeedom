@@ -56,7 +56,7 @@ class PSUControl_Jeedom(octoprint.plugin.StartupPlugin,
         psucontrol_helpers['register_plugin'](self)
 
     def send(self, id_cmd):
-        url = self.config['address'] + '/jeeApi.php'
+        url = self.config['address'] + '/core/api/jeeApi.php'
         params = { "apikey" : self.config['api_key'], "type" : "cmd", "id" : id_cmd }
 
         response = None
@@ -83,10 +83,16 @@ class PSUControl_Jeedom(octoprint.plugin.StartupPlugin,
         return response
 
     def change_psu_state(self, state):
-        if (state == 'on'):
-            _cmd_id = self.config['on_cmd_id']
+        if state:
+            if (state == 'on'):
+                _cmd_id = self.config['on_cmd_id']
+            else:
+                _cmd_id = self.config['off_cmd_id']
         else:
-            _cmd_id = self.config['off_cmd_id']
+            if self.get_psu_state():
+                _cmd_id = self.config['off_cmd_id']
+            else:
+                _cmd_id = self.config['on_cmd_id']
 
         self.send(_cmd_id)
 
@@ -107,7 +113,7 @@ class PSUControl_Jeedom(octoprint.plugin.StartupPlugin,
 
         status = None
         try:
-            status = (response == 1)
+            status = (response.text == "1")
         except KeyError:
             pass
 
