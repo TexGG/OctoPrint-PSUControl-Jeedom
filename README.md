@@ -1,6 +1,7 @@
 # OctoPrint PSU Control - Jeedom
 Adds Jeedom support to OctoPrint-PSUControl as a sub-plugin
 
+![PSUControl-Jeedom](psucontrol_jeedom_settings.png?raw=true)
 ## Setup
 - Install the plugin using Plugin Manager from Settings
 - Configure this plugin
@@ -21,5 +22,5 @@ Adds Jeedom support to OctoPrint-PSUControl as a sub-plugin
 Please check your logs first. If they do not explain your issue, open an issue in GitHub. Please set *octoprint.plugins.psucontrol* and *octoprint.plugins.psucontrol_jeedom* to **DEBUG** and include the relevant logs. Feature requests are welcome as well.
 
 ## Todo
-- [ ] Add images to documentation
+- [x] Add images to documentation
 - [ ] Comment code
