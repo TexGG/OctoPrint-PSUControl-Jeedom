@@ -22,3 +22,4 @@ Please check your logs first. If they do not explain your issue, open an issue i
 
 ## Todo
 - [ ] Add images to documentation
+- [ ] Comment code
