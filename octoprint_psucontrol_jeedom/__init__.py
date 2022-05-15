@@ -21,12 +21,12 @@ class PSUControl_Jeedom(octoprint.plugin.StartupPlugin,
 
     def get_settings_defaults(self):
         return dict(
-            address = '',
-            api_key = '',
-            on_cmd_id = '',
-            off_cmd_id = '',
-            status_cmd_id = '',
-            verify_certificate = True,
+            address = '', # Jeedom base URL whitout trailing /
+            api_key = '', # API key
+            on_cmd_id = '', # ON command id
+            off_cmd_id = '', # OFF command id
+            status_cmd_id = '', # Status command id
+            verify_certificate = True, # Shoud we check SSL certificate
         )
 
     def on_settings_initialized(self):
@@ -56,12 +56,15 @@ class PSUControl_Jeedom(octoprint.plugin.StartupPlugin,
         psucontrol_helpers['register_plugin'](self)
 
     def send(self, id_cmd):
+        # Jeedom API URL
         url = self.config['address'] + '/core/api/jeeApi.php'
+        # 3 parameters : apikey, type and id
         params = { "apikey" : self.config['api_key'], "type" : "cmd", "id" : id_cmd }
 
         response = None
         verify_certificate = self.config['verify_certificate']
         try:
+                # send command
                 response = requests.post(url, params=params, verify=verify_certificate)
         except (
                 requests.exceptions.InvalidURL,
@@ -83,15 +86,15 @@ class PSUControl_Jeedom(octoprint.plugin.StartupPlugin,
         return response
 
     def change_psu_state(self, state):
-        if state:
-            if (state == 'on'):
+        if state: # if state parameter, on/off mode
+            if (state == 'on'): # on
                 _cmd_id = self.config['on_cmd_id']
-            else:
+            else: # off
                 _cmd_id = self.config['off_cmd_id']
-        else:
-            if self.get_psu_state():
+        else: # toggle mode
+            if self.get_psu_state(): # on
                 _cmd_id = self.config['off_cmd_id']
-            else:
+            else: # off
                 _cmd_id = self.config['on_cmd_id']
 
         self.send(_cmd_id)
@@ -107,13 +110,14 @@ class PSUControl_Jeedom(octoprint.plugin.StartupPlugin,
     def get_psu_state(self):
         _cmd_id = self.config['status_cmd_id']
 
+        # get status
         response = self.send(_cmd_id)
         if not response:
             return False
 
         status = None
         try:
-            status = (response.text == "1")
+            status = (response.text == "1") # url response text equal "1" when PSU is ON
         except KeyError:
             pass
 
