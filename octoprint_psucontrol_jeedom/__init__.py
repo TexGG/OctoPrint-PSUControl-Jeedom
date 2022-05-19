@@ -1,4 +1,6 @@
 # coding=utf-8
+# pyright: reportMissingModuleSource=false, reportMissingImports=false
+
 from __future__ import absolute_import
 
 __author__ = "Tex <tex@grosist.fr>"
