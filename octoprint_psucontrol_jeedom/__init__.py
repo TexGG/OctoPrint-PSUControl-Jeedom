@@ -146,7 +146,7 @@ class PSUControl_Jeedom(octoprint.plugin.StartupPlugin,
 
     def get_update_information(self):
         return dict(
-            psucontrol_Jeedom=dict(
+            psucontrol_jeedom=dict(
                 displayName="PSU Control - Jeedom",
                 displayVersion=self._plugin_version,
 
