@@ -6,7 +6,7 @@ import setuptools
 plugin_identifier = "psucontrol_jeedom"
 plugin_package = "octoprint_%s" % plugin_identifier
 plugin_name = "OctoPrint-PSUControl-Jeedom"
-plugin_version = "1.0.1"
+plugin_version = "1.0.2"
 plugin_description = "Adds Jeedom support to OctoPrint-PSUControl as a sub-plugin"
 plugin_author = "Tex"
 plugin_author_email = "tex@grosist.fr"
