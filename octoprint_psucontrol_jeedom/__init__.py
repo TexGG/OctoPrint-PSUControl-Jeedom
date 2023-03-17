@@ -60,8 +60,8 @@ class PSUControl_Jeedom(octoprint.plugin.StartupPlugin,
     def send(self, id_cmd):
         # Jeedom API URL
         url = self.config['address'] + '/core/api/jeeApi.php'
-        # 3 parameters : apikey, type and id
-        params = { "apikey" : self.config['api_key'], "type" : "cmd", "id" : id_cmd }
+        # 4 parameters : plugin, apikey, type and id
+        params = { "plugin" : "virtual", "apikey" : self.config['api_key'], "type" : "cmd", "id" : id_cmd }
 
         response = None
         verify_certificate = self.config['verify_certificate']
